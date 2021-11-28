@@ -1,0 +1,7 @@
+Shell Scripting
+3. [3 values] Write a script that outputs to the screen all files of a given directory which “Other’s” have write permission. The script should receive the directory as argument and perform all required validations.
+
+4. [3 values] Write a script that lists the top 5 “.txt” files of a given directory with the higher line count. The script should receive the directory as argument and perform all required validations.
+
+5. [6 values] Write a script that will process the contents of /etc/shadow and output the users whose passwords are about to expire (i.e., expiry date is in 
+the following 5 days, inclusive). Assume that a user password expires when the expiry date is greater or equal than the current date (days since Jan 1, 1970). The script should be scheduled in crontab to execute every day at 11:30 p.m and its output redirected to a file named “password_notices.log”.
