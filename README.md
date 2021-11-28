@@ -1,2 +1,2 @@
-# -PGSICP-PRCSE
+# PGSICP-PRCSE
 Princípios de Computação Segura
