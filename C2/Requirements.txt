@@ -1,0 +1,5 @@
+# 20211205 - PGSICP-PRCSE - Grupo2
+#
+# pip install -r Requirements.txt
+#
+dataset
