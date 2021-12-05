@@ -40,16 +40,16 @@ def list_resource(resource):
             print(row)
 
 
-createTables()
-resource=("resource1",)
-insert_resource(resource)
-resource=("resource2",)
-insert_resource(resource)
-resource=("resource3",)
-insert_resource(resource)
+#createTables()
+#resource=("resource1",)
+#insert_resource(resource)
+#resource=("resource2",)
+#insert_resource(resource)
+#resource=("resource3",)
+#insert_resource(resource)
 
-list_resource(("ALL",))
+#list_resource(("ALL",))
 
-insert_resource(resource)
+#insert_resource(resource)
 
-con.close()
+#con.close()
