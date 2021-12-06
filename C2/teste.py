@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 # coding: utf-8
 #
-
+import sqlite3
 from crud_resources import *
+from createDB import *
 
 try:
     con = sqlite3.connect('example.db')
@@ -17,7 +18,7 @@ insert_resource(con,resource2)
 resource3=("resource3",)
 insert_resource(con,resource3)
 
-list_resource(con,"ALL")
+print(list_resource(con,"ALL"))
 
 insert_resource(con,resource3)
 
@@ -32,6 +33,6 @@ result=find_resource(con,query)
 print(result)
 
 
-#list_resource("ALL")
+print(list_resource(con,("resou%2",)))
 
 con.close()

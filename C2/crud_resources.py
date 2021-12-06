@@ -18,15 +18,13 @@
 
 import sqlite3
 
-def createTables(con):
-    con.execute("create table if not exists resources (rs_name varchar unique)")
-    con.execute("create table if not exists roles (r_name varchar unique, r_resource varchar, r_permissions varchar)")
-    con.execute("create table if not exists users (u_username varchar unique, u_name varchar, \
-                u_bank_account_number varchar, u_password varchar, u_password_validity int, u_password_expire_date int)")
-    con.execute("create table if not exists user_roles (ur_username varchar, ur_role varchar, \
-                primary key (ur_username, ur_role))")
 
 # Insert resources
+#
+# PARAMETERS:
+#   con         connection object
+#   resource    tuple with values to insert
+# ----------------------------------
 def insert_resource(con,resource):
     try:
         with con:
@@ -37,40 +35,50 @@ def insert_resource(con,resource):
 # List resources Function
 #
 # PARAMETERS:
-#   tuple resource
+#   con         connection object
+#   resource    string "ALL" or tuple with values to list
 #
 #   If resource = ALL then Select all table
 #   Tuple can have wildcards
+#
+#  RETURN:
+#   tuple with all table columns
+# ----------------------------------
 def list_resource(con,resource):
     if resource=="ALL":
-        for row in con.execute('SELECT * FROM resources ORDER BY rs_name'):
-            print(row)
+        #for row in con.execute('SELECT * FROM resources ORDER BY rs_name'):
+        #    print(row)
+        return con.execute('SELECT * FROM resources ORDER BY rs_name').fetchall()
     else:
-        for row in con.execute('SELECT * FROM resources WHERE rs_name like (?) ORDER BY rs_name', (resource)):
-            print(row)
+        return con.execute('SELECT * FROM resources WHERE rs_name like (?) ORDER BY rs_name', (resource)).fetchall()
 
 # Find resources Function
 #
 # PARAMETERS:
-#   tuple resource
+#   con         connection object
+#   resource    tuple with resource to retrieve
 #
 #  RETURN:
 #   tuple with all table columns
+# ----------------------------------
 def find_resource(con,resource):
     return con.execute('SELECT * FROM resources WHERE rs_name = (?)', (resource)).fetchone()
     
 # Update resources Function
 #
 # PARAMETERS:
-#   tuple update. 1st element is the new value, second element is the resource to update
+#   con             connection object
+#   update_values   tuple which 1st element is the new value, the second element is the resource to update
 #
-def update_resource(con,update_state):
-    con.execute('UPDATE resources SET rs_name = (?) WHERE rs_name = (?)', (update_state))
+# ----------------------------------
+def update_resource(con,update_values):
+    con.execute('UPDATE resources SET rs_name = (?) WHERE rs_name = (?)', (update_values))
 
 # Delete resources Function
 #
 # PARAMETERS:
-#   tuple resource
-
+#   con         connection object
+#   resource    tuple with resource to delete
+# ----------------------------------
 def delete_resource(con,resource):
     con.execute('DELETE FROM resources WHERE rs_name = (?)', (resource))
