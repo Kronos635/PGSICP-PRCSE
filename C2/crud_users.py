@@ -29,8 +29,11 @@ def insert_user(con,user):
     try:
         with con:
             con.execute("insert into users values (?,?,?,?,?,?)", (user))
+            return("OK")
     except sqlite3.IntegrityError:
-        print("user already exists")
+        return("user already exists")
+    except sqlite3.Error as e:
+        return("An error occurred:", e.args[0])
 
 # List users Function
 #
@@ -42,13 +45,14 @@ def insert_user(con,user):
 #   Tuple can have wildcards
 #
 #  RETURN:
-#   List of tuples with all table columns
+#   List of tuples with all table columns, except u_password
 # ----------------------------------
 def list_user(con,user):
     if user=="ALL":
-        return con.execute('SELECT * FROM users ORDER BY u_username').fetchall()
+        return con.execute('SELECT u_username,u_name,u_bank_account_number,u_password_validity,u_password_expire_date FROM users ORDER BY u_username').fetchall()
     else:
-        return con.execute('SELECT * FROM users WHERE u_username like (?) ORDER BY u_username', (user)).fetchall()
+        return con.execute('SELECT u_username,u_name,u_bank_account_number,u_password_validity,u_password_expire_date FROM users \
+                        WHERE u_username like (?) ORDER BY u_username', (user)).fetchall()
 
 # Find users Function
 #
@@ -60,33 +64,54 @@ def list_user(con,user):
 #   tuple with all table columns
 # ----------------------------------
 def find_user(con,user):
-    return con.execute('SELECT * FROM users WHERE u_username = (?)', (user)).fetchone()
+    return con.execute('SELECT u_username,u_name,u_bank_account_number,u_password_validity,u_password_expire_date FROM users WHERE u_username = (?)', (user)).fetchone()
     
 # Update users Function
 #
 # PARAMETERS:
 #   con             connection object
-#   update_values   tuple which 1st element is the new value, the second element is the user to update
+#   update_values   tuple with user information, except u_password and u_password_expire_date. The last element from tuple is the user to update
 #
 # ----------------------------------
 def update_user(con,update_values):
-    con.execute('UPDATE users SET u_username = (?) WHERE u_username = (?)', (update_values))
+    try:
+        with con:
+            con.execute('UPDATE users SET u_username = (?), u_name = (?),u_bank_account_number = (?),u_password_validity = (?) \
+                        WHERE u_username = (?)', (update_values))
+            return("Ok")
+    except sqlite3.IntegrityError:
+        return("Update failed. Resource name should be unique.")
+    except sqlite3.Error as e:
+        return("An error occurred:", e.args[0])
 
 # Update user passsword Function
 #
 # PARAMETERS:
 #   con             connection object
-#   update_values   tuple in which 1st element is the new password, and the second element is the user to update
+#   update_values   tuple in which 1st element is the new password, the second element is the new computed password expiration date and the third element is the user to update
 #
 # ----------------------------------
 def update_user_password(con,update_values):
-    con.execute('UPDATE users SET u_password = (?) WHERE u_username = (?)', (update_values))
+    try:
+        with con:
+            con.execute('UPDATE users SET u_password = (?), \
+                                u_password_expire_date = (?) \
+                WHERE u_username = (?)', (update_values))
+            return("OK")
+    except sqlite3.Error as e:
+        return("An error occurred:", e.args[0])
+
 
 # Delete users Function
 #
 # PARAMETERS:
-#   con         connection object
+#   con     connection object
 #   user    tuple with user to delete
 # ----------------------------------
 def delete_user(con,user):
-    con.execute('DELETE FROM users WHERE u_username = (?)', (user))
+    try:
+        with con:
+            con.execute('DELETE FROM users WHERE u_username = (?)', (user))
+            return("OK")
+    except sqlite3.Error as e:
+        return("An error occurred:", e.args[0])

@@ -21,81 +21,81 @@ import sqlite3
 import app_logging
 
 
-# Insert resources
+# Insert roles
 #
 # PARAMETERS:
 #   con         connection object
-#   resource    tuple with values to insert
+#   role    tuple with values to insert
 # ----------------------------------
-def insert_resource(con,resource):
+def insert_role(con,role):
     try:
         with con:
-            con.execute("insert into resources values (?)", (resource))
+            con.execute("insert into roles values (?,?,?)", (role))
             return("OK")
     except sqlite3.IntegrityError:
-        return("Resource already exists")
+        return("role already exists")
     except sqlite3.Error as e:
         return("An error occurred:", e.args[0])
 
-# List resources Function
+# List roles Function
 #
 # PARAMETERS:
 #   con         connection object
-#   resource    string "ALL" or tuple with values to list
+#   role    string "ALL" or tuple with values to list
 #
-#   If resource = ALL then Select all table
+#   If role = ALL then Select all table
 #   Tuple can have wildcards
 #
 #  RETURN:
 #   List of tuples with all table columns
 # ----------------------------------
-def list_resource(con,resource):
-    if resource=="ALL":
-        #for row in con.execute('SELECT * FROM resources ORDER BY rs_name'):
+def list_role(con,role):
+    if role=="ALL":
+        #for row in con.execute('SELECT * FROM roles ORDER BY rs_name'):
         #    print(row)
-        return con.execute('SELECT * FROM resources ORDER BY rs_name').fetchall()
+        return con.execute('SELECT * FROM roles ORDER BY r_name').fetchall()
     else:
-        return con.execute('SELECT * FROM resources WHERE rs_name like (?) ORDER BY rs_name', (resource)).fetchall()
+        return con.execute('SELECT * FROM roles WHERE r_name like (?) ORDER BY r_name', (role)).fetchall()
 
-# Find resources Function
+# Find roles Function
 #
 # PARAMETERS:
 #   con         connection object
-#   resource    tuple with resource to retrieve
+#   role        tuple with role to retrieve
 #
 #  RETURN:
 #   tuple with all table columns
 # ----------------------------------
-def find_resource(con,resource):
-    return con.execute('SELECT * FROM resources WHERE rs_name = (?)', (resource)).fetchone()
+def find_role(con,role):
+    return con.execute('SELECT * FROM roles WHERE r_name = (?)', (role)).fetchone()
     
-# Update resources Function
+# Update roles Function
 #
 # PARAMETERS:
 #   con             connection object
-#   update_values   tuple which 1st element is the new value, the second element is the resource to update
+#   update_values   tuple with the new values, the last element is the name of the role to be updated
 #
 # ----------------------------------
-def update_resource(con,update_values):
+def update_role(con,update_values):
     try:
         with con:
-            con.execute('UPDATE resources SET rs_name = (?) WHERE rs_name = (?)', (update_values))
+            con.execute('UPDATE roles SET r_name = (?), r_resource = (?), r_permissions = (?)  WHERE r_name = (?)', (update_values))
             return("OK")
     except sqlite3.IntegrityError:
-        return("Update failed. Resource name should be unique.")
+        return("Update failed. role name should be unique.")
     except sqlite3.Error as e:
         return("An error occurred:", e.args[0])
 
-# Delete resources Function
+# Delete roles Function
 #
 # PARAMETERS:
 #   con         connection object
-#   resource    tuple with resource to delete
+#   role    tuple with role to delete
 # ----------------------------------
-def delete_resource(con,resource):
+def delete_role(con,role):
     try:
         with con:
-            con.execute('DELETE FROM resources WHERE rs_name = (?)', (resource))
+            con.execute('DELETE FROM roles WHERE r_name = (?)', (role))
             return("OK")
     except sqlite3.Error as e:
         return("An error occurred:", e.args[0])
