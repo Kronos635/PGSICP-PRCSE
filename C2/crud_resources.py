@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # coding: utf-8
 #
 # 20211205 - PGSICP-PRCSE - Grupo2
@@ -42,7 +42,7 @@ def insert_resource(con,resource):
 #   Tuple can have wildcards
 #
 #  RETURN:
-#   tuple with all table columns
+#   List of tuples with all table columns
 # ----------------------------------
 def list_resource(con,resource):
     if resource=="ALL":
@@ -72,7 +72,11 @@ def find_resource(con,resource):
 #
 # ----------------------------------
 def update_resource(con,update_values):
-    con.execute('UPDATE resources SET rs_name = (?) WHERE rs_name = (?)', (update_values))
+    try:
+        with con:
+            con.execute('UPDATE resources SET rs_name = (?) WHERE rs_name = (?)', (update_values))
+    except:
+        print("Update failed. Resource name should be unique.")
 
 # Delete resources Function
 #
