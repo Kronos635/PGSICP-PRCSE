@@ -78,7 +78,7 @@ def update_user(con,update_values):
         with con:
             con.execute('UPDATE users SET u_username = (?), u_name = (?),u_bank_account_number = (?),u_password_validity = (?) \
                         WHERE u_username = (?)', (update_values))
-            return("Ok")
+            return("OK")
     except sqlite3.IntegrityError:
         return("Update failed. Resource name should be unique.")
     except sqlite3.Error as e:
