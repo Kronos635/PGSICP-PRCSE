@@ -76,7 +76,7 @@ def find_user(con,user):
 def update_user(con,update_values):
     try:
         with con:
-            con.execute('UPDATE users SET u_username = (?), u_name = (?),u_bank_account_number = (?),u_password_validity = (?) \
+            con.execute('UPDATE users SET u_name = (?),u_bank_account_number = (?),u_password_validity = (?) \
                         WHERE u_username = (?)', (update_values))
             return("OK")
     except sqlite3.IntegrityError:

@@ -178,3 +178,90 @@
 2021-12-08 16:31:27,883 ### INFO - Role: role1, updated successfully. role1 resource1 r ###
 
 2021-12-08 16:33:10,458 ERROR - Choice: 7 is NOT valid!
+2021-12-08 20:36:36,188 ### INFO - Table "resources" created ###
+
+2021-12-08 20:36:36,200 ### INFO - Table "users" created ###
+
+2021-12-08 20:36:36,220 ### INFO - Table "roles" created ###
+
+2021-12-08 20:36:36,235 ### INFO - Table "user_roles" created ###
+
+2021-12-08 21:39:53,745 ### INFO - Table "resources" created ###
+
+2021-12-08 21:39:53,760 ### INFO - Table "users" created ###
+
+2021-12-08 21:39:53,779 ### INFO - Table "roles" created ###
+
+2021-12-08 21:39:53,788 ### INFO - Table "user_roles" created ###
+
+2021-12-08 21:45:15,359 ### INFO - Table "resources" created ###
+
+2021-12-08 21:45:15,374 ### INFO - Table "users" created ###
+
+2021-12-08 21:45:15,393 ### INFO - Table "roles" created ###
+
+2021-12-08 21:45:15,406 ### INFO - Table "user_roles" created ###
+
+2021-12-08 21:46:06,644 ### INFO - Table "resources" created ###
+
+2021-12-08 21:46:06,660 ### INFO - Table "users" created ###
+
+2021-12-08 21:46:06,675 ### INFO - Table "roles" created ###
+
+2021-12-08 21:46:06,697 ### INFO - Table "user_roles" created ###
+
+2021-12-08 22:00:53,157 ### INFO - Table "resources" created ###
+
+2021-12-08 22:00:53,178 ### INFO - Table "users" created ###
+
+2021-12-08 22:00:53,195 ### INFO - Table "roles" created ###
+
+2021-12-08 22:00:53,211 ### INFO - Table "user_roles" created ###
+
+2021-12-08 22:03:47,235 ### INFO - Table "resources" created ###
+
+2021-12-08 22:03:47,255 ### INFO - Table "users" created ###
+
+2021-12-08 22:03:47,273 ### INFO - Table "roles" created ###
+
+2021-12-08 22:03:47,284 ### INFO - Table "user_roles" created ###
+
+2021-12-08 22:06:43,945 ### INFO - Table "resources" created ###
+
+2021-12-08 22:06:43,960 ### INFO - Table "users" created ###
+
+2021-12-08 22:06:43,973 ### INFO - Table "roles" created ###
+
+2021-12-08 22:06:43,988 ### INFO - Table "user_roles" created ###
+
+2021-12-08 22:09:29,559 ### INFO - Table "resources" created ###
+
+2021-12-08 22:09:29,575 ### INFO - Table "users" created ###
+
+2021-12-08 22:09:29,588 ### INFO - Table "roles" created ###
+
+2021-12-08 22:09:29,607 ### INFO - Table "user_roles" created ###
+
+2021-12-08 22:13:09,084 [INFO] - Starting script
+
+2021-12-08 22:13:31,800 [INFO] - Starting script
+
+2021-12-08 22:14:13,578 [INFO] - Starting script
+
+2021-12-08 22:20:41,210 [INFO] - Resource: , deleted.
+
+2021-12-08 22:27:56,255 [INFO] - Starting script
+
+2021-12-08 22:28:50,086 [INFO] - Starting script
+
+2021-12-08 22:42:02,786 [INFO] - Starting script
+
+2021-12-08 22:42:11,295 ERROR - Choice: 8 is NOT valid!
+2021-12-08 22:45:09,578 ### INFO - Table "resources" created ###
+
+2021-12-08 22:45:09,589 ### INFO - Table "users" created ###
+
+2021-12-08 22:45:09,605 ### INFO - Table "roles" created ###
+
+2021-12-08 22:45:09,626 ### INFO - Table "user_roles" created ###
+

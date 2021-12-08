@@ -64,21 +64,20 @@ print(list_resource(con,("resou%2",)))
 # a byte string is just a sequence of bytes. In this case we will use "UTF-8" for latin characters and special characters support
 # ?|!"'*çÇàÀáÁãÃõÕéÉóÓõÕ<>€ºªêÊ^~£§,;.:-_#$%&/\()= is a valid password
 print("\n\n---------------------------------- Users Sanity Tests\n\n")
-user1_password=input("\nUser1 password:").encode('UTF-8')
-user1=("user1@isep.ipp.pt","User1","435747437278474176347",hashlib.sha256(user1_password).hexdigest(),30,646474)
-
+user1_password="User1$password:".encode('UTF-8')
+user1=("user1@isep.ipp.pt","User1","435747437278474176347",hashlib.sha256(user1_password).hexdigest(),30,1639180800000)
 print("Inserting new user " + user1[0] + ": [" + insert_user(con, user1) + "]")
 
 user2_password="password2".encode('UTF-8')
-user2=("user2@isep.ipp.pt","User2","00747437278474176347",hashlib.sha256(user2_password).hexdigest(),30,646474)
+user2=("user2@isep.ipp.pt","User2","00747437278474176347",hashlib.sha256(user2_password).hexdigest(),30,1640390400000)
 print("Inserting new user " + user2[0] + ": [" + insert_user(con, user2) + "]")
 
 user3_password="password3".encode('UTF-8')
-user3=("user3@isep.ipp.pt","User3","35474857979808576456",hashlib.sha256(user3_password).hexdigest(),30,646474)
+user3=("user3@isep.ipp.pt","User3","35474857979808576456",hashlib.sha256(user3_password).hexdigest(),30,1640908800000)
 print("Inserting new user " + user3[0] + ": [" + insert_user(con, user3) + "]")
 
 user4_password="password4".encode('UTF-8')
-user4=("user4@isep.ipp.pt","User4","957347457576343456343",hashlib.sha256(user4_password).hexdigest(),30,646474)
+user4=("user4@isep.ipp.pt","User4","957347457576343456343",hashlib.sha256(user4_password).hexdigest(),30,1639267200000)
 print("Inserting new user " + user4[0] + ": [" + insert_user(con, user4) + "]")
 
 print("\nList all users:")
@@ -87,7 +86,7 @@ print("list has " + str(len(list_all_users)) + " rows")
 print(list_all_users)
 
 update_data=("Alterado","35474857979808576456",30,"user3@isep.ipp.pt")
-print("\nUpdating " + update_data[3] + ": [" + update_user(con, update_data) + "]")
+print("\nUpdating user " + update_data[0] + ": [" + update_user(con,update_data) + "]")
 
 query = ("%user3%",)
 result=list_user(con,query)
@@ -169,12 +168,19 @@ print(result)
 user_role5=("user1@isep.ipp.pt","role4")
 print("\nAssigning " + user_role5[1] + " to user " + user_role5[0] + ": [" + insert_user_role(con,user_role5) + "]")
 
-print("\nList users with role1 assigned:")
+print("\n\n---------------------------------- Lists \n\n")
+print("\nList users with role5 assigned:")
 print(list_role_users(con,("role5",)))
 
 print("\nList assigned roles for user 'user1@isep.ipp.pt':")
 print(list_user_roles(con,("user1@isep.ipp.pt",)))
 
 #print(list_user_roles(con,("%isep%",)))
+
+print("\nList users with password expired in the next 7 days:")
+print(list_users_password_to_be_expired(con,(1639526400000,)))
+
+print("\nList users that access resource2:")
+print(list_resources_accessed_by_user(con,("resource2",)))
 
 con.close()

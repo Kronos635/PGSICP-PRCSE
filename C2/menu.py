@@ -57,7 +57,7 @@ def userMenu():
         print("\nChoose an option: ")
         print("""
         1 : Create user account                   (DONE)
-        2 : Update/Modify user account
+        2 : Update/Modify user account            (DONE) - falta validar nr conta bancaria
         3 : Delete user account                   (DONE)
         4 : List information of a user account    (DONE)
         5 : List information of all user accounts (DONE)
@@ -67,7 +67,22 @@ def userMenu():
         choice = input("\nEnter your choice : ")
 
         if choice == '1':
-            username = input('\nType user account name: ')
+            while True:
+                username = input('\nType user account name: ')
+                # Convert username to lowercase
+                username = username.lower()
+                # Check if the username entered is a valid email
+                # ^[a-z0-9-\._] -> check if the string start with [a-z] and/or [0-9] and/or [- . _] The slash \ serves as an escape character
+                # Check the presence of @
+                # Looks for char/word/number until the [.]
+                # After the [.] looks for char/word/number, bigger than 2 chars
+                # Example of valid email: nf_o.asd-asd@info1.info1
+                if not re.search('^[a-z0-9-\._]+[a-z0-9]+[@]\w+[.]\w{2,}$', username):
+                    print(f'\n[ERROR] - Not a valid email!')
+                    continue
+                else:
+                    #print(f'\nValidity ok.')
+                    break
             name = input('\nType user name: ')
             bank_account_number = input('\nType bank account number: ')
             while True:
@@ -108,7 +123,55 @@ def userMenu():
             else:
                 error=f'\n[ERROR] - Couldnt create user: {username}\n{insert_user_return}'
         elif choice == '2' :
-            print(f'\nChoice: {choice}')
+            while True:
+                # Modify user, gets input from user
+                username = input('\nType the username to modify: ')
+                # Get current values from the role in the DB
+                result = find_user(con,(username,))
+                if result is not None:
+                    break
+                else:
+                    print(f'\n[ERROR] - User "{username}" not found!')
+                    continue
+            name_current = result[1]
+            bank_account_number_current = result[2]
+            password_validity_current = result[3]
+            # Get new name for the role, or keep the same by hitting enter
+            # In case the user doesn't write anything, we save this variable to use later
+            name = input(f'\nNew name (To keep the current value "{name_current}", just hit "Enter" button): ')
+            if not name.isspace() and not name.strip():
+                #print("Nothing written for userName")
+                name = name_current
+            # Get bank account number, or keep the same by hitting enter
+            bank_account_number = input(f'\nNew bank account number (To keep the current value "{bank_account_number_current}", just hit "Enter" button): ')
+            if not bank_account_number.isspace() and not bank_account_number.strip():
+                bank_account_number = bank_account_number_current
+            while True:
+                # New password validity time, or keep the same by hitting enter
+                password_validity = input(f'\nNew password validity time (To keep the current value "{password_validity_current}", just hit "Enter" button): ')
+                # Regex validates if the numbre of days is in the range [1-30]. 
+                # ^([1-9] -> check if the beginning of the string is in the range [1-9]
+                # | -> regex OR operator
+                # |1[0-9] -> OR the string starts with 1 in combination with the range [0-9], checks for range [10-19]
+                # |2[0-9] -> OR the string starts with 2 in combination with the range [0-9], checks for range [20-29]
+                # |3[0] -> OR the string starts with 1 in combination with the range [0-9], checks for value [3]
+                if not re.search("^([1-9]|1[0-9]|2[0-9]|3[0])$", password_validity):
+                    print(f'\n[ERROR] - Password validity must be in the range [1-30]!')
+                    continue
+                else:
+                    #print(f'\nValidity ok.')
+                    break
+            if not password_validity.isspace() and not password_validity.strip():
+                password_validity = password_validity_current
+            # Create tuple to feed the update function
+            update_values = (name,bank_account_number,password_validity,username)
+            error = update_user(con,update_values)
+            if error == "OK":
+                error = f'[INFO] - User: "{username}" updated successfully.'
+                logging.info(f'[INFO] - Role: {username}, updated successfully.\n')
+            else:
+                error = f'[ERROR] - User: "{username}" couldnt be updated.'
+                logging.error(f'[ERROR] - User: {username} couldnt be updated.\n')
         elif choice == '3' :
             # Delete a role, gets input from user. Before deleting checks if it exists in DB
             username = input("\nUsername to delete: ")
@@ -122,7 +185,7 @@ def userMenu():
                     # If user delete went ok, return info to user
                     if delete_user_return == "OK":
                         error = f'\n[INFO] - User: "{username}" deleted.'
-                        logging.info(f'### INFO - role: "{username}"", deleted ###\n')
+                        logging.info(f'[INFO] INFO - role: "{username}"", deleted\n')
                     # If user creation didn't go ok, return error to user
                     else:
                         error = f'\n[ERROR] - Couldnt delete user: "{username}"\n"{insert_user_return}"'
@@ -196,7 +259,7 @@ def resourcesMenu():
                     # Delete operation requires a commit, so that when the connection is closed to the DB the resource is actually deleted
                     con.commit()
                     print(f'Resource: {resource}, deleted')
-                    logging.info(f'### INFO - Resource: {resource}, deleted ###\n')
+                    logging.info(f'[INFO] - Resource: {resource}, deleted.\n')
                 else:
                     print(f'{resource}, is not a resource!')
             else:
@@ -265,7 +328,7 @@ def rolesMenu():
                 error = f'Role permission "{role_permission}" is not valid!'
             if error == "OK":
                 error = f'Role "{role_name}" created successfully.'
-                logging.info(f'### INFO - Role: {role_name}, created successfully. ###\n')
+                logging.info(f'[INFO] - Role: {role_name}, created successfully.\n')
         elif choice == '2' :
             # Change role, gets input from user
             role_name_current = input('\nName of the role to modify: ')
@@ -295,7 +358,7 @@ def rolesMenu():
                 error = f'Role permission "{role_permission}" is not valid!'
             if error == "OK":
                 error = f'Role "{role_name}" updated successfully.'
-                logging.info(f'### INFO - Role: {role_name_current}, updated successfully. {role_name} {role_resource} {role_permission} ###\n')
+                logging.info(f'[INFO]- Role: {role_name_current}, updated successfully. {role_name} {role_resource} {role_permission}\n')
         elif choice == '3' :
             # Delete a role, gets input from user. Before deleting checks if it exists in DB
             role = input("\nName of the role to delete: ")
@@ -307,7 +370,7 @@ def rolesMenu():
                     # Delete operation requires a commit, so that when the connection is closed to the DB the role is actually deleted
                     con.commit()
                     error = f'Role: "{role}", deleted'
-                    logging.info(f'### INFO - role: {role}, deleted ###\n')
+                    logging.info(f'[INFO] - role: {role}, deleted.\n')
                 else:
                     print(f'{role}, is not a role!')
             else:
@@ -336,13 +399,20 @@ def rolesMenu():
 ### Script execution ###
 
 # Connect to database
-try:
-    con = sqlite3.connect('example.db')
+if not os.path.isfile("example.db"):
+    try:
+        con = sqlite3.connect('example.db')
+    except:
+        print("Not possible to connect to database")
+        logging.error('[ERROR] - Not possible to connect to database\n')
     createTables(con)
-except:
-    print("Not possible to connect to database")
+else:
+    try:
+        con = sqlite3.connect('example.db')
+    except:
+        print("Not possible to connect to database")
+        logging.error('[ERROR] - Not possible to connect to database\n')
 
 # Calling main menu function
-logging.info('### INFO - Starting script ###\n')
+logging.info('[INFO] - Starting script\n')
 mainMenu()
-

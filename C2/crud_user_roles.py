@@ -125,3 +125,19 @@ def delete_user_role(con,user_role):
             return("OK")
     except sqlite3.Error as e:
         return("An error occurred:", e.args[0])
+
+# List resources accessed by a specific user Function
+#
+# PARAMETERS:
+#   con         connection object
+#   resource    tuple with resource to list users for
+#
+#
+#  RETURN:
+#   List of tuples with users with a given role
+# ----------------------------------
+def list_resources_accessed_by_user(con,resource):
+    return con.execute('SELECT u_username, u_name, ur_role, r_resource, r_permissions FROM user_roles \
+                            JOIN users on ur_username = u_username \
+                            JOIN roles on ur_role = r_name \
+                            WHERE r_resource like (?) ORDER BY r_resource', (resource)).fetchall()
