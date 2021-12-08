@@ -86,3 +86,95 @@
 
 2021-12-08 09:55:38,679 ### INFO - Table "user_roles" created ###
 
+2021-12-08 11:15:26,573 ### INFO - Table "resources" created ###
+
+2021-12-08 11:15:26,574 ### INFO - Table "users" created ###
+
+2021-12-08 11:15:26,576 ### INFO - Table "roles" created ###
+
+2021-12-08 11:15:26,576 ### INFO - Table "user_roles" created ###
+
+2021-12-08 11:15:26,576 ### INFO - Starting script ###
+
+2021-12-08 11:15:47,985 ERROR - Choice: 7 is NOT valid!
+2021-12-08 11:16:26,073 ### INFO - Role: role1, updated successfully. role1 resource1 r ###
+
+2021-12-08 11:21:37,743 ### INFO - Table "resources" created ###
+
+2021-12-08 11:21:37,743 ### INFO - Table "users" created ###
+
+2021-12-08 11:21:37,744 ### INFO - Table "roles" created ###
+
+2021-12-08 11:21:37,744 ### INFO - Table "user_roles" created ###
+
+2021-12-08 11:21:37,744 ### INFO - Starting script ###
+
+2021-12-08 11:26:36,607 ### INFO - Table "resources" created ###
+
+2021-12-08 11:26:36,622 ### INFO - Table "users" created ###
+
+2021-12-08 11:26:36,637 ### INFO - Table "roles" created ###
+
+2021-12-08 11:26:36,651 ### INFO - Table "user_roles" created ###
+
+2021-12-08 11:30:35,876 ### INFO - Table "resources" created ###
+
+2021-12-08 11:30:35,890 ### INFO - Table "users" created ###
+
+2021-12-08 11:30:35,905 ### INFO - Table "roles" created ###
+
+2021-12-08 11:30:35,932 ### INFO - Table "user_roles" created ###
+
+2021-12-08 11:54:47,647 ### INFO - Table "resources" created ###
+
+2021-12-08 11:54:47,648 ### INFO - Table "users" created ###
+
+2021-12-08 11:54:47,650 ### INFO - Table "roles" created ###
+
+2021-12-08 11:54:47,652 ### INFO - Table "user_roles" created ###
+
+2021-12-08 11:54:47,654 ### INFO - Starting script ###
+
+2021-12-08 11:58:24,500 ### INFO - Table "resources" created ###
+
+2021-12-08 11:58:24,501 ### INFO - Table "users" created ###
+
+2021-12-08 11:58:24,503 ### INFO - Table "roles" created ###
+
+2021-12-08 11:58:24,504 ### INFO - Table "user_roles" created ###
+
+2021-12-08 11:58:24,507 ### INFO - Starting script ###
+
+2021-12-08 15:42:39,737 ### INFO - Table "resources" created ###
+
+2021-12-08 15:42:39,738 ### INFO - Table "users" created ###
+
+2021-12-08 15:42:39,738 ### INFO - Table "roles" created ###
+
+2021-12-08 15:42:39,738 ### INFO - Table "user_roles" created ###
+
+2021-12-08 15:42:39,738 ### INFO - Starting script ###
+
+2021-12-08 15:45:00,342 ### INFO - Table "resources" created ###
+
+2021-12-08 15:45:00,343 ### INFO - Table "users" created ###
+
+2021-12-08 15:45:00,343 ### INFO - Table "roles" created ###
+
+2021-12-08 15:45:00,343 ### INFO - Table "user_roles" created ###
+
+2021-12-08 15:45:00,343 ### INFO - Starting script ###
+
+2021-12-08 16:30:42,979 ### INFO - Table "resources" created ###
+
+2021-12-08 16:30:42,980 ### INFO - Table "users" created ###
+
+2021-12-08 16:30:42,982 ### INFO - Table "roles" created ###
+
+2021-12-08 16:30:42,982 ### INFO - Table "user_roles" created ###
+
+2021-12-08 16:30:42,983 ### INFO - Starting script ###
+
+2021-12-08 16:31:27,883 ### INFO - Role: role1, updated successfully. role1 resource1 r ###
+
+2021-12-08 16:33:10,458 ERROR - Choice: 7 is NOT valid!

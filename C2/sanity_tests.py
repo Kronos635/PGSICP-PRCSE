@@ -86,8 +86,8 @@ list_all_users=list_user(con,"ALL")
 print("list has " + str(len(list_all_users)) + " rows")
 print(list_all_users)
 
-update_data=("user5@isep.ipp.pt","Alterado","35474857979808576456",30,"user3@isep.ipp.pt")
-print("\nUpdating " + update_data[4] + " to " + update_data[0] + ": [" + update_user(con, update_data) + "]")
+update_data=("Alterado","35474857979808576456",30,"user3@isep.ipp.pt")
+print("\nUpdating " + update_data[3] + ": [" + update_user(con, update_data) + "]")
 
 query = ("%user3%",)
 result=list_user(con,query)
