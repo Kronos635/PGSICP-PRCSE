@@ -175,6 +175,8 @@ print(list_role_users(con,("role5",)))
 print("\nList assigned roles for user 'user1@isep.ipp.pt':")
 print(list_user_roles(con,("user1@isep.ipp.pt",)))
 
+print("\nList roles for resource1: ")
+print(list_role_for_resource(con,("resource1",)))
 #print(list_user_roles(con,("%isep%",)))
 
 print("\nList users with password expired in the next 7 days:")
@@ -182,5 +184,8 @@ print(list_users_password_to_be_expired(con,(1639526400000,)))
 
 print("\nList users that access resource2:")
 print(list_resources_accessed_by_user(con,("resource2",)))
+
+print("\nList roles for resource2:")
+print(list_role_for_resource(con,("resource2",)))
 
 con.close()

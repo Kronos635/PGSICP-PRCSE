@@ -22,7 +22,7 @@ def mainMenu():
         1 : User accounts actions (leads to another menu with create/delete/modify/list)
         2 : Company resources actions (leads to another menu with create/delete/modify/list)
         3 : Roles actions (leads to another menu with create/delete/modify/list)
-        4 : List all information
+        4 : Assign roles to user
         0 : Exit"""
               )
         choice = input("\nEnter your choice : ")
@@ -38,6 +38,36 @@ def mainMenu():
             rolesMenu()
         elif choice == '4' :
             print(f'\nChoice: {choice}')
+            # Ask resource to assign roles to
+            resource = input("\nName of the resource to assign roles: ")
+            if find_resource(con, (resource,)) is not None:
+                while True:
+                    print(f"Roles for resource {resource}:")
+                    for row in list_role_for_resource(con,(resource,)):
+                        print(row[0] + ";" + row[1] + ";" + row[2])
+                    user = input("\nUsername of the resource to assign the role: ")
+                    if find_user(con, (user,)) is not None:
+                        role = input("\nInsert role to be assigned: ")
+                        if find_role(con, (role,)) is not None:
+                            error = insert_user_role(con,(user,role))
+                            if error == "OK":
+                                error = "Role " + role + " assigned to user "+ user + " successfully"
+                                logging.info(f'[INFO] - {error}.\n')
+                                break
+                            else:
+                                error = f'[ERROR] - User role {role} couldnt be  assigned to {user}.'
+                                logging.error('{error}.\n')
+                                break 
+                        else:
+                            error=f'\n[ERROR] - Role {role} does not exists!'
+                            logging.error('{error}.\n')
+                            continue
+                    else:
+                        error=f'\n[ERROR] - User {user} does not exists!'
+                        logging.error('{error}.\n')
+                        continue
+            else:
+                error=f'\n[ERROR] - Resource {resource} does not exists!'
         elif choice == '0':
             print(f'\nChoice: {choice}')
             con.close()
@@ -57,7 +87,7 @@ def userMenu():
         print("\nChoose an option: ")
         print("""
         1 : Create user account                   (DONE)
-        2 : Update/Modify user account            (DONE) - falta validar nr conta bancaria
+        2 : Update/Modify user account            (DONE)
         3 : Delete user account                   (DONE)
         4 : List information of a user account    (DONE)
         5 : List information of all user accounts (DONE)
@@ -68,7 +98,7 @@ def userMenu():
 
         if choice == '1':
             while True:
-                username = input('\nType user account name: ')
+                username = input('\nType user account name (Email): ')
                 # Convert username to lowercase
                 username = username.lower()
                 # Check if the username entered is a valid email
@@ -84,7 +114,15 @@ def userMenu():
                     #print(f'\nValidity ok.')
                     break
             name = input('\nType user name: ')
-            bank_account_number = input('\nType bank account number: ')
+            while True:
+                bank_account_number = input('\nType bank account number: ')
+                # Bank account number must have 21 numbers
+                if not re.search('^[0-9]{21}$', bank_account_number):
+                    print(f'\n[ERROR] - Bank account number must have 21 numbers!')
+                    continue
+                else:
+                    #print(f'\nValidity ok.')
+                    break
             while True:
                 password_before_hash = input('\nType the password: ')
                 validate_password_return = validarPassword(password_before_hash)
@@ -143,9 +181,19 @@ def userMenu():
                 #print("Nothing written for userName")
                 name = name_current
             # Get bank account number, or keep the same by hitting enter
-            bank_account_number = input(f'\nNew bank account number (To keep the current value "{bank_account_number_current}", just hit "Enter" button): ')
-            if not bank_account_number.isspace() and not bank_account_number.strip():
-                bank_account_number = bank_account_number_current
+            while True:
+                bank_account_number = input(f'\nNew bank account number (To keep the current value "{bank_account_number_current}", just hit "Enter" button): ')
+                # Exit while cycle, keeping the bank account number already in the DB
+                if not bank_account_number.isspace() and not bank_account_number.strip():
+                    bank_account_number = bank_account_number_current
+                    break
+                # Bank account number must have 21 numbers
+                elif not re.search('^[0-9]{21}$', bank_account_number):
+                    print(f'\n[ERROR] - Bank account number must have 21 numbers!')
+                    continue
+                else:
+                    #print(f'\nValidity ok.')
+                    break
             while True:
                 # New password validity time, or keep the same by hitting enter
                 password_validity = input(f'\nNew password validity time (To keep the current value "{password_validity_current}", just hit "Enter" button): ')
@@ -178,6 +226,7 @@ def userMenu():
             varQuestionDelete = input(f"\nAre you sure you want to delete role: {username}? (Y/N)")
             if varQuestionDelete in ('y', 'yes', 'Y', 'YES'):
                 varFind_username = find_user(con,(username,))
+                # If username exists, proceed to delete
                 if varFind_username[0] == username:
                     delete_user_return = delete_user(con,(username,))
                     # Delete operation requires a commit, so that when the connection is closed to the DB, the user is actually deleted
@@ -206,6 +255,7 @@ def userMenu():
             # Print all roles
             print(f'\n### List of all user accounts ###')
             results = list_user(con,"ALL")
+            # For each line in the returned results, show each value
             for row in results:
                 print(f'\nUsername: {row[0]}; Name: {row[1]}; Bank Account Number: {row[2]}; Password valid for: {row[3]} days; Password expiration date: {row[4]}')
             input("\nPress <enter> to continue")
@@ -218,7 +268,7 @@ def userMenu():
             exit()
         else:
             error=f'\n[ERROR] - Please insert a valid option. Choice: {choice} is NOT valid!'
-            logging.error(f'ERROR - Choice: {choice} is NOT valid!')
+            logging.error(f'[ERROR] - Choice: {choice} is NOT valid!')
 
 # Resources menu, perform operations related to resources
 def resourcesMenu():
@@ -415,4 +465,6 @@ else:
 
 # Calling main menu function
 logging.info('[INFO] - Starting script\n')
+
 mainMenu()
+
