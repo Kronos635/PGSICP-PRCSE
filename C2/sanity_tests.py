@@ -88,6 +88,9 @@ print(list_all_users)
 update_data=("Alterado","35474857979808576456",30,"user3@isep.ipp.pt")
 print("\nUpdating user " + update_data[0] + ": [" + update_user(con,update_data) + "]")
 
+update_data=(hashlib.sha256(user4_password).hexdigest(),1640908800000,"user3@isep.ipp.pt")
+print("\nUpdating user passsord for user " + update_data[2] + ": [" + update_user_password(con,update_data) + "]")
+
 query = ("%user3%",)
 result=list_user(con,query)
 print("\nQuery for user: user3 using wildcard '%'")

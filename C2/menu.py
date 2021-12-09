@@ -38,31 +38,42 @@ def mainMenu():
             rolesMenu()
         elif choice == '4' :
             print(f'\nChoice: {choice}')
-            # Ask resource to assign roles to
+            # Ask resource to assign roles to.
             resource = input("\nName of the resource to assign roles: ")
+            # check if resource exisos
             if find_resource(con, (resource,)) is not None:
+                # lets loop until we received a existing username
                 while True:
+                    # List existing roles for given resource to help user to choose one
                     print(f"Roles for resource {resource}:")
                     for row in list_role_for_resource(con,(resource,)):
                         print(row[0] + ";" + row[1] + ";" + row[2])
+                    # Ask for username
                     user = input("\nUsername of the resource to assign the role: ")
+                    # If username exists
                     if find_user(con, (user,)) is not None:
+                        # Ask for role to be assigned
                         role = input("\nInsert role to be assigned: ")
                         if find_role(con, (role,)) is not None:
+                            # If role exists, lets assign it to the user
                             error = insert_user_role(con,(user,role))
                             if error == "OK":
+                                # role assigned. Return Success afte mesage for user ans log.
                                 error = "Role " + role + " assigned to user "+ user + " successfully"
                                 logging.info(f'[INFO] - {error}.\n')
                                 break
                             else:
+                                # something went wrong
                                 error = f'[ERROR] - User role {role} couldnt be  assigned to {user}.'
                                 logging.error('{error}.\n')
                                 break 
                         else:
+                            # wrong role. Lets loop
                             error=f'\n[ERROR] - Role {role} does not exists!'
                             logging.error('{error}.\n')
                             continue
                     else:
+                        # wrong username. Lets loop
                         error=f'\n[ERROR] - User {user} does not exists!'
                         logging.error('{error}.\n')
                         continue
