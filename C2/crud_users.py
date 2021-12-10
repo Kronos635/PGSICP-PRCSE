@@ -66,6 +66,18 @@ def list_user(con,user):
 def find_user(con,user):
     return con.execute('SELECT u_username,u_name,u_bank_account_number,u_password_validity,u_password_expire_date FROM users WHERE u_username = (?)', (user)).fetchone()
     
+# Find users Function
+#
+# PARAMETERS:
+#   con      connection object
+#   user    tuple with user to retrieve
+#
+#  RETURN:
+#   tuple with username and password for authentication purposes
+# ----------------------------------
+def find_user_passwd(con,user):
+    return con.execute('SELECT u_username,u_password FROM users WHERE u_username = (?)', (user)).fetchone()
+
 # Update users Function
 #
 # PARAMETERS:
@@ -126,4 +138,4 @@ def delete_user(con,user):
 #   List of tuples with username
 # ----------------------------------
 def list_users_password_to_be_expired(con,date_expire):
-    return con.execute('SELECT u_username FROM users WHERE u_password_expire_date < (?) ORDER BY u_username', (date_expire)).fetchall()
+    return con.execute('SELECT u_username, u_password_expire_date FROM users WHERE u_password_expire_date < (?) ORDER BY u_username', (date_expire)).fetchall()

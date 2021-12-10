@@ -3,7 +3,7 @@
 from datetime import datetime, timezone, timedelta
 
 # Create the timestamp in miliseconds, used for password
-def converto_to_ms(days_valid):
+def convert_to_ms(days_valid):
     # Convert number of days, currently a string, to int
     days_valid = int(days_valid)
     # The method "strptime" creates a datetime object from the given string. This string is created using "strftime"
@@ -19,7 +19,7 @@ def converto_to_ms(days_valid):
 #print(converto_to_ms(days_valid))
 
 # Convert the timestamp in miliseconds to date, used for password expiration
-def converto_from_ms(date_to_convert):
+def convert_from_ms(date_to_convert):
     # Convert value received, currently a string, to int
     date_to_convert = int(date_to_convert)
     # Convert from miliseconds to date Year-Month-Day HH:MM:SS

@@ -12,15 +12,15 @@ from crud_users import *
 from crud_roles import *
 from crud_user_roles import *
 
-if not os.path.isfile("example.db"):
+if not os.path.isfile("/mount/lixo/example.db"):
     try:
-        con = sqlite3.connect('example.db')
+        con = sqlite3.connect('/mount/lixo/example.db')
     except:
         print("Not possible to connect to database")
     createTables(con)
 else:
     try:
-        con = sqlite3.connect('example.db')
+        con = sqlite3.connect('/mount/lixo/example.db')
     except:
         print("Not possible to connect to database")
 
@@ -40,13 +40,11 @@ print("\nInserting duplicated resource " + resource1[0] + ": [" + insert_resourc
 
 update_state=("resource4","resource3")
 print("Updating " + update_state[1] + " to " + update_state[0] + ": [" + update_resource(con,update_state) + "]")
-#print(update_resource(con,update_state))
 
 print("\nList all resources:")
 print(list_resource(con,("ALL")))
 
 print("\nDeleting resource " + resource1[0] + ": [" + delete_resource(con,resource1) + "]")
-#print(delete_resource(con,resource1))
 print("\nList all resources:")
 print(list_resource(con,("ALL")))
 
@@ -101,11 +99,11 @@ print(result)
 
 #---------------------------------- Roles
 print("\n\n---------------------------------- Roles Sanity Tests\n\n")
-role1=("role1","resource1","r")
+role1=("role1_resource4_r","resource4","r")
 print("Inserting new role " + role1[0] + ": [" + insert_role(con,role1) + "]")
-role2=("role2","resource1","w")
+role2=("role2_resource4_w","resource4","w")
 print("Inserting new role " + role2[0] + ": [" + insert_role(con,role2) + "]")
-role3=("role3","resource2","w")
+role3=("role3_resource2_rw","resource2","rw")
 print("Inserting new role " + role3[0] + ": [" + insert_role(con,role3) + "]")
 
 print("\nList all roles:")
@@ -113,22 +111,22 @@ print(list_role(con,"ALL"))
 
 print("\nInserting duplicated role " + role3[0] + ": [" + insert_role(con,role3) + "]")
 
-update_state=("role4","resource2","w","role3")
+update_state=("role4_resource2_rw","resource2","rw","role3_resource2_rw")
 print("\nUpdating role " + update_state[3] + " to " + update_state[0] + ": [" + update_role(con,update_state) + "]")
 
-query = ("role4",)
+query = ("role4_resource2_rw",)
 print("\nQuery for role " + query[0] + " explicitly:")
 print(find_role(con,query))
 
-print("\nDeleting role2: [ " + delete_role(con,("role2",)) + "]")
+print("\nDeleting role2: [ " + delete_role(con,("role2_resource4_w",)) + "]")
 
 print("\nList all roles:")
 print(list_role(con,"ALL"))
 
 print("\nQuery for role 'role1' using wildcard '%'")
-print(list_role(con,("ro%1",)))
+print(list_role(con,("role1%",)))
 
-role5=("role5","resource2","r")
+role5=("role5_resource4_rw","resource4","rw")
 print("\nInserting new role " + role5[0] + ": [" + insert_role(con,role5) + "]")
 
 
@@ -138,11 +136,11 @@ print("\nInserting new role " + role5[0] + ": [" + insert_role(con,role5) + "]")
 
 print("\n\n---------------------------------- User Roles Sanity Tests\n\n")
 
-user_role1=("user1@isep.ipp.pt","role1")
+user_role1=("user1@isep.ipp.pt","role1_resource4_r")
 print("Assigning " + user_role1[1] + " to user " + user_role1[0] + ": [" + insert_user_role(con,user_role1) + "]")
-user_role2=("user2@isep.ipp.pt","role4")
+user_role2=("user2@isep.ipp.pt","role4_resource2_rw")
 print("Assigning " + user_role2[1] + " to user " + user_role2[0] + ": [" + insert_user_role(con,user_role2) + "]")
-user_role3=("user5@isep.ipp.pt","role1")
+user_role3=("user5@isep.ipp.pt","role1_resource4_r")
 print("Assigning " + user_role3[1] + " to user " + user_role3[0] + ": [" + insert_user_role(con,user_role3) + "]")
 
 print("\nList users by role:")
@@ -151,11 +149,11 @@ print(list_user_roles(con,"ALL"))
 
 print("\nAssigning duplicated  " + user_role3[1] + " to " + user_role3[0] + ": [" + insert_user_role(con,user_role3) + "]")
 
-user_role4=("user1@isep.ipp.pt","role5")
+user_role4=("user1@isep.ipp.pt","role5_resource4_rw")
 print("Assigning " + user_role4[1] + " to user " + user_role4[0] + ": [" + insert_user_role(con,user_role4) + "]")
 
 
-update_state=("user1@isep.ipp.pt","role5","user1@isep.ipp.pt","role4")
+update_state=("user1@isep.ipp.pt","role5_resource4_rw","user1@isep.ipp.pt","role4_resource2_rw")
 print("Updating " + update_state[3] + " for user " + update_state[2] + " to " + update_state[1] + ": [" + update_user_role(con,update_state) + "]")
 
 print("Revoking " + user_role2[1] + " for user: " + user_role2[0] + "[" + delete_user_role(con,user_role2) + "]")
@@ -168,18 +166,18 @@ result=find_user_role(con,query)
 print("\nQuery if user  " + query[0] + " has " + query[1] + " role assigned")
 print(result)
 
-user_role5=("user1@isep.ipp.pt","role4")
+user_role5=("user1@isep.ipp.pt","role4_resource2_rw")
 print("\nAssigning " + user_role5[1] + " to user " + user_role5[0] + ": [" + insert_user_role(con,user_role5) + "]")
 
 print("\n\n---------------------------------- Lists \n\n")
-print("\nList users with role5 assigned:")
-print(list_role_users(con,("role5",)))
+print("\nList users with role5_resource4_rw assigned:")
+print(list_role_users(con,("role5_resource4_rw",)))
 
 print("\nList assigned roles for user 'user1@isep.ipp.pt':")
 print(list_user_roles(con,("user1@isep.ipp.pt",)))
 
-print("\nList roles for resource1: ")
-print(list_role_for_resource(con,("resource1",)))
+print("\nList roles for resource2: ")
+print(list_role_for_resource(con,("resource2",)))
 #print(list_user_roles(con,("%isep%",)))
 
 print("\nList users with password expired in the next 7 days:")
@@ -188,7 +186,10 @@ print(list_users_password_to_be_expired(con,(1639526400000,)))
 print("\nList users that access resource2:")
 print(list_resources_accessed_by_user(con,("resource2",)))
 
-print("\nList roles for resource2:")
-print(list_role_for_resource(con,("resource2",)))
+print("\nList roles for resource4:")
+print(list_role_for_resource(con,("resource4",)))
+
+print("\nList resources accessed by user1@isep.ipp.pt:")
+print(list_resources_accessed_by_username(con,("user1@isep.ipp.pt",)))
 
 con.close()

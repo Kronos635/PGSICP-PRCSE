@@ -20,7 +20,6 @@
 import sqlite3
 import app_logging
 
-
 # Insert user_roles
 #
 # PARAMETERS:
@@ -141,3 +140,19 @@ def list_resources_accessed_by_user(con,resource):
                             JOIN users on ur_username = u_username \
                             JOIN roles on ur_role = r_name \
                             WHERE r_resource like (?) ORDER BY r_resource', (resource)).fetchall()
+
+# List resources accessed by a specific user Function
+#
+# PARAMETERS:
+#   con         connection object
+#   resource    tuple with resource to list users for
+#
+#
+#  RETURN:
+#   List of tuples with users with a given role
+# ----------------------------------
+def list_resources_accessed_by_username(con,username):
+    return con.execute('SELECT u_username, u_name, ur_role, r_resource, r_permissions FROM user_roles \
+                            JOIN users on ur_username = u_username \
+                            JOIN roles on ur_role = r_name \
+                            WHERE ur_username like (?) ORDER BY r_resource', (username)).fetchall()
