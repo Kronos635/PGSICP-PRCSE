@@ -1,0 +1,81 @@
+2021-12-10 23:23:36,992 [INFO] - No DB found
+
+2021-12-10 23:23:42,078 ### INFO - Table "resources" created ###
+
+2021-12-10 23:23:42,088 ### INFO - Table "users" created ###
+
+2021-12-10 23:23:42,101 ### INFO - Table "roles" created ###
+
+2021-12-10 23:23:42,113 ### INFO - Table "user_roles" created ###
+
+2021-12-10 23:23:42,114 [INFO] - Sample Database "example.db" created
+
+2021-12-10 23:23:42,501 ### INFO - Table "resources" created ###
+
+2021-12-10 23:23:42,518 ### INFO - Table "users" created ###
+
+2021-12-10 23:23:42,531 ### INFO - Table "roles" created ###
+
+2021-12-10 23:23:42,541 ### INFO - Table "user_roles" created ###
+
+2021-12-10 23:23:42,608 [INFO] - Database "AA.db" created
+
+2021-12-10 23:23:42,615 [INFO] - Starting script
+
+2021-12-11 12:37:06,866 [INFO] - No DB found
+
+2021-12-11 12:37:13,208 ### INFO - Table "resources" created ###
+
+2021-12-11 12:37:13,222 ### INFO - Table "users" created ###
+
+2021-12-11 12:37:13,235 ### INFO - Table "roles" created ###
+
+2021-12-11 12:37:13,247 ### INFO - Table "user_roles" created ###
+
+2021-12-11 12:37:13,247 [INFO] - Sample Database "example.db" created
+
+2021-12-11 12:37:13,683 ### INFO - Table "resources" created ###
+
+2021-12-11 12:37:13,699 ### INFO - Table "users" created ###
+
+2021-12-11 12:37:13,715 ### INFO - Table "roles" created ###
+
+2021-12-11 12:37:13,726 ### INFO - Table "user_roles" created ###
+
+2021-12-11 12:37:13,804 [INFO] - Database "AA.db" created
+
+2021-12-11 12:37:13,816 [INFO] - Starting script
+
+2021-12-11 12:37:37,900 [ERROR] - login attempt failed. User does not exist: aa@admin.pt
+
+2021-12-11 12:37:41,381 [INFO] - Starting script
+
+2021-12-11 12:38:06,386 [INFO] - No DB found
+
+2021-12-11 12:38:08,712 ### INFO - Table "resources" created ###
+
+2021-12-11 12:38:08,726 ### INFO - Table "users" created ###
+
+2021-12-11 12:38:08,739 ### INFO - Table "roles" created ###
+
+2021-12-11 12:38:08,755 ### INFO - Table "user_roles" created ###
+
+2021-12-11 12:38:08,756 [INFO] - Sample Database "example.db" created
+
+2021-12-11 12:38:09,876 ### INFO - Table "resources" created ###
+
+2021-12-11 12:38:10,047 ### INFO - Table "users" created ###
+
+2021-12-11 12:38:10,259 ### INFO - Table "roles" created ###
+
+2021-12-11 12:38:10,533 ### INFO - Table "user_roles" created ###
+
+2021-12-11 12:38:11,578 [INFO] - Database "AA.db" created
+
+2021-12-11 12:38:11,582 [INFO] - Starting script
+
+2021-12-11 12:39:53,048 [INFO] - Password for user: "admin@aa.pt" updated succesfully.
+
+2021-12-11 12:41:55,406 [INFO] - Option 5 used - passwords expiring in 7 days.
+2021-12-11 12:42:32,971 [INFO] - Starting script
+
